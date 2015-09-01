@@ -1,0 +1,12 @@
+{
+  "name": "tcp_concurrency_server_test",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "async": "^1.4.2",
+    "moment": "^2.10.6"
+  }
+}
