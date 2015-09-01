@@ -3,7 +3,7 @@ var net = require('net');
 var HOST = '127.0.0.1';
 var PORT = 6969;
 
-var CONCURRENCY = 4500;
+var CONCURRENCY = 4000;
 
 for (var i = 0; i < CONCURRENCY; i++) {
 	(function(net){
@@ -32,8 +32,4 @@ for (var i = 0; i < CONCURRENCY; i++) {
 		  console.log(iter, 'disconnected from server');
 		});
 	})(net);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 38446522421ee64dd853c5f57805b1909e329053
