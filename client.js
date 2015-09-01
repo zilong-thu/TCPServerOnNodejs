@@ -3,7 +3,9 @@ var net = require('net');
 var HOST = '127.0.0.1';
 var PORT = 6969;
 
-var CONCURRENCY = 4000;
+var CONCURRENCY = 5000;
+var REMAINING   = CONCURRENCY;
+
 
 for (var i = 0; i < CONCURRENCY; i++) {
 	(function(net){
@@ -14,22 +16,26 @@ for (var i = 0; i < CONCURRENCY; i++) {
 			port: PORT,
 			host: HOST
 		},function() { //'connect' listener
-		  console.log('client ', iter, ' connected to server!');
 		  client.write(msg);
 		});
 
 		client.on('data', function(data) {
-		    console.log('Iterval ', iter, ': ', data.toString());
+		    // console.log('Iterval ', iter, ': ', data.toString());
 		    var timeToWait = (200 + Math.random() * 800 ).toFixed(0);
 
 		  	setTimeout(function(){
 		  		client.write(msg);
 		  	}, timeToWait);
-
 		});
 
 		client.on('end', function() {
 		  console.log(iter, 'disconnected from server');
+		});
+
+		client.on('error', function(error){
+			REMAINING--;
+		    console.log('Client ', iter, ' error occured.');
+		    console.log('REMAINING : ', REMAINING);
 		});
 	})(net);
 }
