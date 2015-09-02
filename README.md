@@ -9,14 +9,14 @@
 至于`net`模块，一定要显示地对错误事件进行处理，哪怕什么都不做。
 
 ## Mac下进行并发测试时的配置
-参考资料：[Mac的最大连接数限制和端口的相关参数的设置](http://tinylee.info/mac-maxfiles-portrange.html)
+参考资料[1]：[Mac的最大连接数限制和端口的相关参数的设置](http://tinylee.info/mac-maxfiles-portrange.html)
 
 需要修改系统的最大连接数限制、进程最大连接数限制、shell能打开的最大文件数、动态端口范围。
 
-###临时修改方案：
-见参考资料
+### 临时修改方案：
+见参考资料[1].
 
-###永久修改方案：
+### 永久修改方案：
 
 把参数写到/etc/sysctl.conf文件中，但是，默认这个文件是不存在的，所以首先就要创建它：
 
@@ -74,9 +74,11 @@ tcp_max_tw_buckets: 表示操作系统允许TIME-WAIT套接字数量的最大值
 
 ip_local_port_range: 定义了在UDP和TCP连接中，本地（不包括连接的远端）端口的取值范围。
 
-net.ipv4.tcp_rmem TCP接收缓存（用于TCP接收滑动窗口）的最小值、默认值、最大值
+net.ipv4.tcp_rmem TCP接收缓存（用于TCP接收滑动窗口）的最小值、默认值、最大值，单位是字节
 
-net.ipv4.tcp_wmem TCP发送缓存（用于TCP发送滑动窗口）的最小值、默认值、最大值
+net.ipv4.tcp_wmem TCP发送缓存（用于TCP发送滑动窗口）的最小值、默认值、最大值，单位是字节
+
+[TCP Variables](https://www.frozentux.net/ipsysctl-tutorial/chunkyhtml/tcpvariables.html) 里有对上面这两个参数的详细介绍。
 
 net.core.netdev_max_backlog 当网卡接收数据包的速度大于内核处理的速度时，会有一个队列保存这些数据包。netdev_max_backlog 参数表示该队列的最大值。
 
