@@ -5,7 +5,7 @@ var HOST = '127.0.0.1';
 
 var PORT = 5001;
 
-var CONCURRENCY = 5000;
+var CONCURRENCY = 10000;
 var REMAINING   = CONCURRENCY;
 
 
@@ -38,6 +38,9 @@ for (var i = 0; i < CONCURRENCY; i++) {
 			REMAINING--;
 		    console.log('Client ', iter, ' error occured.');
 		    console.log('REMAINING : ', REMAINING);
+		    if (iter > 4900) {
+		    	console.log('Error: ', error);
+		    };
 		});
 	})(net);
 }
