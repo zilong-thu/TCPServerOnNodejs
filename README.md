@@ -36,11 +36,14 @@ net.inet.ip.portrange.last=65535
 ulimit-n的值，可以把ulimit－n 1048576 写到.bashrc中实现自动修改。
 
 ## Linux
+内核参数优化，参考《深入理解Nginx：模块开发与架构解析》
 
-``` /etc/sysctl.conf
+打开`/etc/sysctl.conf`文件，如下添加或改动，然后执行`sysctl -p`命令即可生效。
+
+```
 #原有字段
 net.ipv4.tcp_syncookies = 1
-#新增字段
+#新增字段及含义
 fs.file-max = 999999
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_keepalive_time = 600
@@ -56,3 +59,49 @@ net.core.rmem_max = 12582912
 net.core.wmem_max = 12582912
 net.ipv4.tcp_max_syn_backlog = 1024
 ```
+
+### 字段及含义
+
+file-max: 表示一个进程（比如一个SHELL）可以同时打开的最大句柄数，这个参数直接限制最大并发连接数，需要根据实际情况进行配置
+
+tcp_tw_reuse: 1表示允许将处于TIME-WAIT状态的socket重新用于新的TCP连接
+
+tcp_keepalive_time: 表示当keepalive启用时，TCP发送keepalive消息的频度。默认是2小时，若将其设得小一点，可以更快地清理无效的连接。
+
+tcp_fin_timeout: 表示当服务器主动关闭连接时，socket保持在FIN-WAIT-2状态的最大时间
+
+tcp_max_tw_buckets: 表示操作系统允许TIME-WAIT套接字数量的最大值，如果超过这个数字，TIME_WAIT套接字将立刻被清除并打印警告消息。该参数默认是180000，过多的TIME_WAIT套接字会使WEB服务器变慢。
+
+ip_local_port_range: 定义了在UDP和TCP连接中，本地（不包括连接的远端）端口的取值范围。
+
+net.ipv4.tcp_rmem TCP接收缓存（用于TCP接收滑动窗口）的最小值、默认值、最大值
+
+net.ipv4.tcp_wmem TCP发送缓存（用于TCP发送滑动窗口）的最小值、默认值、最大值
+
+net.core.netdev_max_backlog 当网卡接收数据包的速度大于内核处理的速度时，会有一个队列保存这些数据包。netdev_max_backlog 参数表示该队列的最大值。
+
+net.core.rmem_default 内核套接字接收缓存区的默认大小
+
+net.core.wmem_default 内核套接字发送缓存区的默认大小
+
+net.core.rmem_max 内核套接字接收缓存区的最大大小
+
+net.core.wmem_max：内核套接字发送缓存区的最大大小
+
+tcp_max_syn_backlog: 表示TCP三次握手建立阶段接收SYN请求队列的最大长度，默认为1024.将其设置得大一些可以在Nginx繁忙而来不及接收新连接的情况下，使得Linux不至于丢失客户端发起的连接请求。
+
+### 客户端设置
+对于客户端，应该设置Linux系统对用户打开文件数的软限制或硬限制（全局）。以提高单个PC作为测试客户端时可以发起的TCP连接上限。
+
+（1）修改 `/etc/security/limits.conf`，添加：
+```
+* soft nofile 40960
+* hard nofile 40960
+```
+
+（2）修改`/etc/pam.d/login`文件，在文件中添加如下行（Ubuntu 14.04默认是有这个设置的，所以确认存在后可以不做改动）：
+```
+session required /lib/security/pam_limits.so
+```
+
+重启后应该可以生效。这时在终端里查看`ulimit -n`应该就是40960了。
