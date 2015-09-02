@@ -1,3 +1,4 @@
+```
 $ free -m -t
              total       used       free     shared    buffers     cached
 Mem:          7915       2021       5893         24         44        427
@@ -13,3 +14,4 @@ wzl       3000 42.2  1.7 766776 140012 pts/17  Rl+  16:42   2:12 node client.js
 wzl       3071 47.8  1.6 760156 134520 pts/25  Rl+  16:42   2:27 node client.js
 wzl       3243 42.6  1.9 780072 154728 pts/26  Rl+  16:42   1:58 node client.js
 wzl       4547  0.0  0.0  15964  2172 pts/27   S+   16:47   0:00 grep --color=auto node
+```
