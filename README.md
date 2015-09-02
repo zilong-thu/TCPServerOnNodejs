@@ -34,3 +34,25 @@ net.inet.ip.portrange.last=65535
 ```
 
 ulimit-n的值，可以把ulimit－n 1048576 写到.bashrc中实现自动修改。
+
+## Linux
+
+``` /etc/sysctl.conf
+#原有字段
+net.ipv4.tcp_syncookies = 1
+#新增字段
+fs.file-max = 999999
+net.ipv4.tcp_tw_reuse = 1
+net.ipv4.tcp_keepalive_time = 600
+net.ipv4.tcp_fin_timeout = 30
+net.ipv4.tcp_max_tw_buckets = 5000
+net.ipv4.ip_local_port_range = 1024 61000
+net.ipv4.tcp_rmem = 10240 87380 12582912
+net.ipv4.tcp_wmem = 10240 87380 12582912
+net.core.netdev_max_backlog = 8096
+net.core.rmem_default = 6291456
+net.core.wmem_default = 6291456
+net.core.rmem_max = 12582912
+net.core.wmem_max = 12582912
+net.ipv4.tcp_max_syn_backlog = 1024
+```

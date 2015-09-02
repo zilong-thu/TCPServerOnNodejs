@@ -23,14 +23,6 @@ var server = net.createServer(function(sock) {
         setTimeout(function(){
             sock.write('Data : "' + data + '"');
         }, 100);
-
-        server.getConnections(function(err, count){
-            if (err) {
-
-            }else{
-                console.log('Current connections count: ', count);
-            }
-        });
     });
 
     // 为这个socket实例添加一个"close"事件处理函数
@@ -48,3 +40,20 @@ var server = net.createServer(function(sock) {
 server.listen(PORT, HOST);
 
 console.log('Server listening on ' + HOST +':'+ PORT);
+
+
+// sample: 取样，每隔一定的时间（秒级），将当前的有效长连接的数量统计一下并输出
+function sample(){
+    setTimeout(function(){
+        server.getConnections(function(err, count){
+            if (err) {
+
+            }else{
+                console.log('Current connections count: ', count);
+                sample();
+            }
+        });
+    }, 2000);
+}
+
+sample();
