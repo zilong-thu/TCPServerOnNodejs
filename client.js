@@ -1,10 +1,10 @@
 var net = require('net');
 
-// var HOST = '192.16';
-var HOST = '192.168.1.21';
+var HOST = '127.0.0.1';
+// var HOST = '192.168.1.21';
 var PORT = 5001;
 
-var CONCURRENCY = 4;
+var CONCURRENCY = 10000;
 var REMAINING   = CONCURRENCY;
 
 
@@ -37,6 +37,7 @@ for (var i = 0; i < CONCURRENCY; i++) {
 			REMAINING--;
 		    console.log('Client ', iter, ' error occured.');
 		    console.log('REMAINING : ', REMAINING);
+		    console.log('Error: ', error);
 		});
 	})(net);
 }
