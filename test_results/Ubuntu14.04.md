@@ -1,3 +1,5 @@
+内存使用情况：
+
 ```
 $ free -m -t
              total       used       free     shared    buffers     cached
@@ -5,7 +7,11 @@ Mem:          7915       2021       5893         24         44        427
 -/+ buffers/cache:       1549       6365
 Swap:        15257          0      15257
 Total:       23173       2021      21151
+```
 
+CPU占用情况：
+
+```
 $ ps aux | grep node
 USER      PID  %CPU %MEM VSZ    RSS   TT       STAT STARTED TIME COMMAND
 wzl       2661  0.0  0.2 972400 22172 pts/2    Sl+  16:41   0:00 node /home/wzl/node/bin/supervisor server.js
