@@ -23,7 +23,7 @@ sudo touch /etc/sysctl.conf
 ```
 kern.maxfiles=1048600
 kern.maxfilesperproc=1048576
-net.inet.ip.portrange.first=49152   
+net.inet.ip.portrange.first=10000   
 net.inet.ip.portrange.last=65535
 ```
 
