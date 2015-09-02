@@ -37,13 +37,7 @@ for (var i = 0; i < CONCURRENCY; i++) {
 			REMAINING--;
 		    console.log('Client ', iter, ' error occured.');
 		    console.log('REMAINING : ', REMAINING);
-<<<<<<< HEAD
 		    console.log('Error: ', error);
-=======
-		    if (iter > 4900) {
-		    	console.log('Error: ', error);
-		    };
->>>>>>> 42a93cc774c9e912571d119ff9203a6ffd743d88
 		});
 	})(net);
 }
