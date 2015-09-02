@@ -7,6 +7,7 @@ Swap:        15257          0      15257
 Total:       23173       2021      21151
 
 $ ps aux | grep node
+USER      PID  %CPU %MEM VSZ    RSS   TT       STAT STARTED TIME COMMAND
 wzl       2661  0.0  0.2 972400 22172 pts/2    Sl+  16:41   0:00 node /home/wzl/node/bin/supervisor server.js
 wzl       2801 94.8  2.2 801296 179012 pts/2   Rl+  16:41   5:13 node server.js
 wzl       2921 47.4  1.5 755128 129588 pts/0   Rl+  16:41   2:31 node client.js
