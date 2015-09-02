@@ -2,7 +2,7 @@ var net = require('net');
 var moment = require('moment');
 
 var HOST = '127.0.0.1';
-var PORT = 6969;
+var PORT = 5001;
 
 // 创建一个TCP服务器实例，调用listen函数开始监听指定端口
 // 传入net.createServer()的回调函数将作为”connection“事件的处理函数
@@ -23,14 +23,6 @@ var server = net.createServer(function(sock) {
         setTimeout(function(){
             sock.write('Data : "' + data + '"');
         }, 100);
-
-        server.getConnections(function(err, count){
-            if (err) {
-
-            }else{
-                console.log('Current connections count: ', count);
-            }
-        });
     });
 
     // 为这个socket实例添加一个"close"事件处理函数
@@ -48,3 +40,20 @@ var server = net.createServer(function(sock) {
 server.listen(PORT, HOST);
 
 console.log('Server listening on ' + HOST +':'+ PORT);
+
+
+// sample: 取样，每隔一定的时间（秒级），将当前的有效长连接的数量统计一下并输出
+function sample(){
+    setTimeout(function(){
+        server.getConnections(function(err, count){
+            if (err) {
+
+            }else{
+                console.log('Current connections count: ', count);
+                sample();
+            }
+        });
+    }, 2000);
+}
+
+sample();
