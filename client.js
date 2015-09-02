@@ -1,9 +1,10 @@
 var net = require('net');
 
-var HOST = '127.0.0.1';
+// var HOST = '192.16';
+var HOST = '192.168.1.21';
 var PORT = 5001;
 
-var CONCURRENCY = 40000;
+var CONCURRENCY = 4;
 var REMAINING   = CONCURRENCY;
 
 
