@@ -71,5 +71,3 @@ if (cluster.isMaster) {
 
   sample();
 }
-
-
