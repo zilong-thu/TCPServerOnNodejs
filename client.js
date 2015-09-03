@@ -5,7 +5,7 @@ var config = require('./config');
 var HOST = config.host;
 var PORT = config.port;
 
-var CONCURRENCY = 10000;
+var CONCURRENCY = 100;
 var REMAINING   = CONCURRENCY;
 
 
@@ -22,7 +22,6 @@ for (var i = 0; i < CONCURRENCY; i++) {
 		});
 
 		client.on('data', function(data) {
-		    // console.log('Iterval ', iter, ': ', data.toString());
 		    var timeToWait = (200 + Math.random() * 800 ).toFixed(0);
 
 		  	setTimeout(function(){
@@ -31,13 +30,12 @@ for (var i = 0; i < CONCURRENCY; i++) {
 		});
 
 		client.on('end', function() {
-		  console.log(iter, 'disconnected from server');
+		  console.log(iter, ' disconnected from server');
 		});
 
 		client.on('error', function(error){
 			REMAINING--;
-		    console.log('Client ', iter, ' error occured.');
-		    console.log('REMAINING : ', REMAINING);
+		    console.log('Client ', iter, ' error occured.', ' REMAINING : ', REMAINING);
 		    console.log('Error: ', error);
 		});
 	})(net);

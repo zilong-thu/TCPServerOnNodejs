@@ -6,7 +6,6 @@ var moment = require('moment');
 
 var config = require('./config');
 
-var HOST = config.host;
 var PORT = config.port;
 
 if (cluster.isMaster) {
@@ -56,7 +55,7 @@ if (cluster.isMaster) {
 
   server.listen(PORT);
 
-  console.log('Server listening on ' + HOST +':'+ PORT);
+  console.log('Server listening on port :'+ PORT);
 
 
   // sample: 取样，每隔一定的时间（秒级），将当前的有效长连接的数量统计一下并输出
