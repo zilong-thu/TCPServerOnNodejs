@@ -1,0 +1,6 @@
+{
+  "name": "config",
+  "version": "0.0.0",
+  "description": "configuration of node TCP server",
+  "main": "./index.js"
+}

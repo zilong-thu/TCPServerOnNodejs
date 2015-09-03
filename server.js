@@ -1,10 +1,13 @@
 var net = require('net');
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
+
 var moment = require('moment');
 
-var HOST = '127.0.0.1';
-var PORT = 5001;
+var config = require('./config');
+
+var HOST = config.host;
+var PORT = config.port;
 
 if (cluster.isMaster) {
   // Fork workers.
