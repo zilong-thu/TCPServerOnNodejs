@@ -54,7 +54,7 @@ if (cluster.isMaster) {
 
   });
 
-  server.listen(PORT, HOST);
+  server.listen(PORT);
 
   console.log('Server listening on ' + HOST +':'+ PORT);
 
