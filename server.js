@@ -1,7 +1,7 @@
 var net = require('net');
-// var moment = require('moment');
 var cluster = require('cluster');
 var numCPUs = require('os').cpus().length;
+var moment = require('moment');
 
 var HOST = '127.0.0.1';
 var PORT = 5001;
@@ -17,6 +17,7 @@ if (cluster.isMaster) {
   });
 } else {
   // Workers can share any TCP connection
+  // 下面的server在每个进程里单独创建，但是由于cluster的作用，它们可以共享同一个端口
   // 创建一个TCP服务器实例，调用listen函数开始监听指定端口
   // 传入net.createServer()的回调函数将作为”connection“事件的处理函数
   // 在每一个“connection”事件中，该回调函数接收到的socket对象是唯一的
@@ -62,7 +63,7 @@ if (cluster.isMaster) {
               if (err) {
 
               }else{
-                  console.log('Current connections count: ', count);
+                  console.log(moment().format('YYYY-MM-DD HH:mm:ss'), 'Current connections count: ', count);
                   sample();
               }
           });
