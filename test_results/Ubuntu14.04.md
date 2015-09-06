@@ -30,7 +30,7 @@ wzl       3243 42.6  1.9 780072 154728 pts/26  Rl+  16:42   1:58 node client.js
 ## test 2
 这次的测试，一是TCP服务器和测试用的客户端程序放置于不同的机器上，因此测试结果比较接近真实场景；二是基于Nodejs cluster实现了对多核的充分利用。
 
-下面是一台测试机、一台服务机的测试结果。
+下面是一台测试机、一台服务机的测试结果。并发TCP连接数为155000.
 
 ```
 wzl@wzl:~/DevelopProjects/TCPServerOnNodejs$ ps aux | grep node
