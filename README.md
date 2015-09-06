@@ -110,13 +110,21 @@ net.core.wmem_max：内核套接字发送缓存区的最大大小
 tcp_max_syn_backlog: 表示TCP三次握手建立阶段接收SYN请求队列的最大长度，默认为1024.将其设置得大一些可以在Nginx繁忙而来不及接收新连接的情况下，使得Linux不至于丢失客户端发起的连接请求。
 
 ### 客户端设置
-对于客户端，应该设置Linux系统对用户打开文件数的软限制或硬限制（全局）。以提高单个PC作为测试客户端时可以发起的TCP连接上限。
+对于客户端，应该设置Linux系统对用户打开文件数的软限制或硬限制（全局）。以提高单个PC作为测试客户端时可以发起的TCP连接上限。（其实服务器端也应该这样设置）
 
 （1）修改 `/etc/security/limits.conf`，添加：
 ```
 * soft nofile 40960
 * hard nofile 40960
 ```
+这两个参数是关于进程最大打开文件描述符数。各个值的约束关系：
+
++ 所有进程打开的文件描述符数不能超过/proc/sys/fs/file-max
++ 单个进程打开的文件描述符数不能超过user limit中nofile的soft limit
++ nofile的soft limit不能超过其hard limit
++ nofile的hard limit不能超过/proc/sys/fs/nr_open
+
+参考： [Linux最大打开文件描述符数](http://blog.csdn.net/superchanon/article/details/13303705)
 
 （2）修改`/etc/pam.d/login`文件，在文件中添加如下行（Ubuntu 14.04默认是有这个设置的，所以确认存在后可以不做改动）：
 ```
