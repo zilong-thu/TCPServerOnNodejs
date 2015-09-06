@@ -113,10 +113,12 @@ tcp_max_syn_backlog: 表示TCP三次握手建立阶段接收SYN请求队列的�
 对于客户端，应该设置Linux系统对用户打开文件数的软限制或硬限制（全局）。以提高单个PC作为测试客户端时可以发起的TCP连接上限。（其实服务器端也应该这样设置）
 
 （1）修改 `/etc/security/limits.conf`，添加：
+
 ```
-* soft nofile 40960
-* hard nofile 40960
+* soft nofile 1000000
+* hard nofile 1800000
 ```
+
 这两个参数是关于进程最大打开文件描述符数。各个值的约束关系：
 
 + 所有进程打开的文件描述符数不能超过/proc/sys/fs/file-max
@@ -131,4 +133,4 @@ tcp_max_syn_backlog: 表示TCP三次握手建立阶段接收SYN请求队列的�
 session required /lib/security/pam_limits.so
 ```
 
-重启后应该可以生效。这时在终端里查看`ulimit -n`应该就是40960了。
+重启后应该可以生效。这时在终端里查看`ulimit -n`应该就是1000000了。
