@@ -126,6 +126,8 @@ tcp_max_syn_backlog: 表示TCP三次握手建立阶段接收SYN请求队列的�
 + nofile的soft limit不能超过其hard limit
 + nofile的hard limit不能超过/proc/sys/fs/nr_open
 
+打开`/proc/sys/fs/nr_open`文件，可以发现，其默认值为 1048576.如果想做更大规模的并发测试，这个值就得改得足够大了。
+
 参考： [Linux最大打开文件描述符数](http://blog.csdn.net/superchanon/article/details/13303705)
 
 （2）修改`/etc/pam.d/login`文件，在文件中添加如下行（Ubuntu 14.04默认是有这个设置的，所以确认存在后可以不做改动）：
